@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>org.igrok.validator</name>
+    </assembly>
+    <members>
+        <member name="M:org.igrok.validator.EmailValidator.ValidateEmail(System.String)">
+            <summary>
+            Validates email according to RFC 5321.
+            Throws ArgumentException, ArgumentNullException, ArgumentOutOfRangeException.
+            If no exception is thrown e-mail is valid.
+            </summary>
+            <param name="mail">email to validate</param>
+            <remarks>
+            Throws ArgumentException, ArgumentNullException or ArgumentOutOfRangeException if email is invalid.
+            </remarks>
+        </member>
+        <member name="T:org.igrok.validator.VatValidator">
+            <summary>
+            Validator for VIES vat numbers of countries Experimental in current version not all validations work
+            </summary>
+        </member>
+        <member name="M:org.igrok.validator.VatValidator.ValidateVat(System.String)">
+            <summary>
+            Validates Vat number
+            </summary>
+            <param name="vat">Vat number to check for correct format</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "org.igrok.validator": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "BUILD_KEY": "I1G0R0O6K1992"
+      }
+    }
+  }
+}
