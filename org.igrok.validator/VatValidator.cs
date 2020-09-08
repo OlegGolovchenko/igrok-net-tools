@@ -1,11 +1,10 @@
-﻿#if NETFULL
-#else
-using IGNActivation.Client;
-#endif
+﻿using IGNActivation.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+#if !NET40
 using System.Threading.Tasks;
+#endif
 
 namespace org.igrok.validator
 {
@@ -14,10 +13,7 @@ namespace org.igrok.validator
     /// </summary>
     public class VatValidator
     {
-#if NETFULL
-#else
         private static ActivationClient _client;
-#endif
         private static string _activationMail;
 
         private static List<VatCountry> _countryList = new List<VatCountry>
@@ -324,21 +320,23 @@ namespace org.igrok.validator
         /// Validates Vat number
         /// </summary>
         /// <param name="vat">Vat number to check for correct format</param>
-#if NETFULL
+#if NET40
         public static void ValidateVatAsync(string vat)
 #else
         public static async Task ValidateVatAsync(string vat)
 #endif
         {
-#if NETFULL
-#else
             _client = new ActivationClient(_activationMail);
+#if NET40
+            _client.ActivateAsync();
+            if(!_client.IsRegisteredAsync())
+#else
             await _client.ActivateAsync();
             if (!await _client.IsRegisteredAsync())
+#endif
             {
                 throw new InvalidOperationException("Please call activate before using product");
             }
-#endif
             ValidateVatNoActivation(vat);
         }
 
@@ -347,19 +345,30 @@ namespace org.igrok.validator
         /// Disclaimer! We are not collecting your data without your consent, your e-mail is the only personal data used in our system.
         /// </summary>
         /// <param name="email">email used to identify your activation</param>
-#if NETFULL
+#if NET40
         public static void ActivateAsync(string email)
 #else
         public static async Task ActivateAsync(string email)
 #endif
         {
             _activationMail = email;
-#if NETFULL
-            //No activation needed because activation client is not compatible with .net 4.0
-#else
             _client = new ActivationClient(_activationMail);
+#if NET40
+            _client.ActivateAsync();
+#else
             await _client.ActivateAsync();
 #endif
+        }
+
+        /// <summary>
+        /// Activates product using offline file with license information
+        /// </summary>
+        /// <param name="email">email of user to validate</param>
+        /// <param name="licenseFilePath">license file with validation info</param>
+        public static void ActivateOffline(string email, string licenseFilePath)
+        {
+            _client = new ActivationClient(email);
+            _client.ActivateOffline(licenseFilePath);
         }
     }
 }

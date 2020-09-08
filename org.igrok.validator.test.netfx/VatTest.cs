@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Threading.Tasks;
 
 namespace org.igrok.validator.test.netfx
 {
@@ -8,325 +9,325 @@ namespace org.igrok.validator.test.netfx
     {
         [TestCase(null)]
         [TestCase("")]
-        public void WhenVatNumberIsNullOrEmpty(string vat)
+        public void WhenVatNumberIsNullOrEmptyAsync(string vat)
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync(vat); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync(vat));
         }
 
         [Test]
-        public void WhenAustrianVatDoesNotHaveUCharacter()
+        public void WhenAustrianVatDoesNotHaveUCharacterAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("at056875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("at056875695"));
         }
 
         [Test]
-        public void WhenAustrianVatIsTooShort()
+        public void WhenAustrianVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("atu568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("atu568756"));
         }
 
         [Test]
-        public void WhenAustrianVatIsTooLong()
+        public void WhenAustrianVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("atu568756956"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("atu568756956"));
         }
 
         [Test]
-        public void WhenAustrianVatNumberIsCorrect()
+        public void WhenAustrianVatNumberIsCorrectAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("atu56875695"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("atu56875695"));
         }
 
         [Test]
-        public void WhenBelgianVatHaveCharacters()
+        public void WhenBelgianVatHaveCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("beu56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("beu56875695"));
         }
 
         [Test]
-        public void WhenBelgianVatIsTooShort()
+        public void WhenBelgianVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("be0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("be0568756"));
         }
 
         [Test]
-        public void WhenBelgianVatIsTooLong()
+        public void WhenBelgianVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("be056875695665"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("be056875695665"));
         }
 
         [Test]
-        public void WhenBelgianVatNumberIsCorrectWith9Digits()
+        public void WhenBelgianVatNumberIsCorrectWith9DigitsAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("be056875695"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("be056875695"));
         }
 
         [Test]
-        public void WhenBelgianVatNumberIsCorrectWith10Digits()
+        public void WhenBelgianVatNumberIsCorrectWith10DigitsAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("be0568756958"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("be0568756958"));
         }
 
         [Test]
-        public void WhenBulgarianVatHaveCharacters()
+        public void WhenBulgarianVatHaveCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("bgu56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("bgu56875695"));
         }
 
         [Test]
-        public void WhenBulgarianVatIsTooShort()
+        public void WhenBulgarianVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("bg0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("bg0568756"));
         }
 
         [Test]
-        public void WhenBulgarianVatIsTooLong()
+        public void WhenBulgarianVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("bg056875695665"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("bg056875695665"));
         }
 
         [Test]
-        public void WhenBulgarianVatNumberIsCorrectWith9Digits()
+        public void WhenBulgarianVatNumberIsCorrectWith9DigitsAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("bg056875695"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("bg056875695"));
         }
 
         [Test]
-        public void WhenBulgarianVatNumberIsCorrectWith10Digits()
+        public void WhenBulgarianVatNumberIsCorrectWith10DigitsAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("bg0568756958"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("bg0568756958"));
         }
 
         [Test]
-        public void WhenCroatianVatHaveCharacters()
+        public void WhenCroatianVatHaveCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("hru56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("hru56875695"));
         }
 
         [Test]
-        public void WhenCroatianVatIsTooShort()
+        public void WhenCroatianVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("hr0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("hr0568756"));
         }
 
         [Test]
-        public void WhenCroatianVatIsTooLong()
+        public void WhenCroatianVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("hr0568756956656565"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("hr0568756956656565"));
         }
 
         [Test]
-        public void WhenCroatianVatNumberIsCorrect()
+        public void WhenCroatianVatNumberIsCorrectAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("hr05687569556"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("hr05687569556"));
         }
 
         [Test]
-        public void WhenCyprusVatHaveCharactersInInvalidPosition()
+        public void WhenCyprusVatHaveCharactersInInvalidPositionAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("cyu56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("cyu56875695"));
         }
 
         [Test]
-        public void WhenCyprusVatIsTooShort()
+        public void WhenCyprusVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("cy0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("cy0568756"));
         }
 
         [Test]
-        public void WhenCyprusVatIsTooLong()
+        public void WhenCyprusVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("cy0568756956656565"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("cy0568756956656565"));
         }
 
         [Test]
-        public void WhenCyprusVatNumberIsCorrect()
+        public void WhenCyprusVatNumberIsCorrectAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("cy05687569A"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("cy05687569A"));
         }
 
         [Test]
-        public void WhenCzechVatHaveCharacters()
+        public void WhenCzechVatHaveCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("czu56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("czu56875695"));
         }
 
         [Test]
-        public void WhenCzechVatIsTooShort()
+        public void WhenCzechVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("cz0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("cz0568756"));
         }
 
         [Test]
-        public void WhenCzechVatIsTooLong()
+        public void WhenCzechVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("cz0568756956656565"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("cz0568756956656565"));
         }
 
         [Test]
-        public void WhenCzechVatNumberIsCorrectButTooLong()
+        public void WhenCzechVatNumberIsCorrectButTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("cz05687569581"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("cz05687569581"));
         }
 
         [Test]
-        public void WhenCzechVatNumberIsCorrect()
+        public void WhenCzechVatNumberIsCorrectAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("cz0568756958"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("cz0568756958"));
         }
 
         [Test]
-        public void WhenDenmarkVatHaveCharacters()
+        public void WhenDenmarkVatHaveCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("dku56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("dku56875695"));
         }
 
         [Test]
-        public void WhenDenmarkVatIsTooShort()
+        public void WhenDenmarkVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("dk0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("dk0568756"));
         }
 
         [Test]
-        public void WhenDenmarkVatIsTooLong()
+        public void WhenDenmarkVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("dk0568756956656565"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("dk0568756956656565"));
         }
 
         [Test]
-        public void WhenDenmarkVatNumberIsCorrect()
+        public void WhenDenmarkVatNumberIsCorrectAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("dk05687569"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("dk05687569"));
         }
 
         [Test]
-        public void WhenEstonianVatHaveCharacters()
+        public void WhenEstonianVatHaveCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("eeu56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("eeu56875695"));
         }
 
         [Test]
-        public void WhenEstonianVatIsTooShort()
+        public void WhenEstonianVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("ee0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("ee0568756"));
         }
 
         [Test]
-        public void WhenEstonianVatIsTooLong()
+        public void WhenEstonianVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("ee0568756956656565"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("ee0568756956656565"));
         }
 
         [Test]
-        public void WhenEstonianVatNumberIsCorrect()
+        public void WhenEstonianVatNumberIsCorrectAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("ee056875690"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("ee056875690"));
         }
 
         [Test]
-        public void WhenFinninshVatHaveCharacters()
+        public void WhenFinninshVatHaveCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("fiu56875695"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("fiu56875695"));
         }
 
         [Test]
-        public void WhenFinnishVatIsTooShort()
+        public void WhenFinnishVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("fi0568756"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("fi0568756"));
         }
 
         [Test]
-        public void WhenFinnishVatIsTooLong()
+        public void WhenFinnishVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("fi0568756956656565"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("fi0568756956656565"));
         }
 
         [Test]
-        public void WhenFinnishVatNumberIsCorrect()
+        public void WhenFinnishVatNumberIsCorrectAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("fi05687569"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("fi05687569"));
         }
         [Test]
-        public void WhenFrenchVatHaveInvalidCharacters()
+        public void WhenFrenchVatHaveInvalidCharactersAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("FROI023587691"); });
-        }
-
-        [Test]
-        public void WhenFrenchVatIsTooLong()
-        {
-            VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("FRAB2586978612"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("FROI023587691"));
         }
 
         [Test]
-        public void WhenFrenchVatIsTooShort()
+        public void WhenFrenchVatIsTooLongAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("FRAB02536897"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("FRAB2586978612"));
         }
 
         [Test]
-        public void WhenFrenchVatHasCharactersAtWrongPosition()
+        public void WhenFrenchVatIsTooShortAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.Throws<ArgumentException>(() => { VatValidator.ValidateVatAsync("FR25AV2368971"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("FRAB02536897"));
         }
 
         [Test]
-        public void WhenFrenchVatHasOnlyOneLetter()
+        public void WhenFrenchVatHasCharactersAtWrongPositionAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("FR0F253684911"); });
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("FRF0253684911"); });
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("FR25AV2368971"));
         }
 
         [Test]
-        public void WhenFrenchVatHasTwoValidLetters()
+        public void WhenFrenchVatHasOnlyOneLetterAsync()
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.DoesNotThrow(() => { VatValidator.ValidateVatAsync("FRFF253684911"); });
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("FR0F253684911"));
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("FRF0253684911"));
+        }
+
+        [Test]
+        public void WhenFrenchVatHasTwoValidLettersAsync()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("FRFF253684911"));
         }
     }
 }
