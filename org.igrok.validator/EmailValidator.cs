@@ -1,10 +1,9 @@
-﻿#if NETFULL
-#else
-using IGNActivation.Client;
-#endif
+﻿using IGNActivation.Client;
 using System;
 using System.Text.RegularExpressions;
+#if !NET40
 using System.Threading.Tasks;
+#endif
 
 namespace org.igrok.validator
 {
@@ -13,29 +12,37 @@ namespace org.igrok.validator
     /// </summary>
     public class EmailValidator
     {
-#if NETFULL
-#else
         private static ActivationClient _client;
-#endif
         private static string _activationMail;
         /// <summary>
         /// Activates product to be used.
         /// Disclaimer! We are not collecting your data without your consent, your e-mail is the only personal data used in our system.
         /// </summary>
         /// <param name="email">email used to identify your activation</param>
-#if NETFULL
+#if NET40
         public static void ActivateAsync(string email)
 #else
         public static async Task ActivateAsync(string email)
 #endif
         {
             _activationMail = email;
-#if NETFULL
-            //No activation needed because activation client is not compatible with .net 4.0
-#else
             _client = new ActivationClient(_activationMail);
+#if NET40
+            _client.ActivateAsync();
+#else
             await _client.ActivateAsync();
 #endif
+        }
+
+        /// <summary>
+        /// Activates product using offline file with license information
+        /// </summary>
+        /// <param name="email">email of user to validate</param>
+        /// <param name="licenseFilePath">license file with validation info</param>
+        public static void ActivateOffline(string email, string licenseFilePath)
+        {
+            _client = new ActivationClient(email);
+            _client.ActivateOffline(licenseFilePath);
         }
 
         internal static void ValidateEmailNoActivation(string mail)
@@ -156,19 +163,20 @@ namespace org.igrok.validator
         /// <remarks>
         /// Throws ArgumentException, ArgumentNullException or ArgumentOutOfRangeException if email is invalid.
         /// </remarks>
-#if NETFULL
+#if NET40
         public static void ValidateEmailAsync(string mail)
 #else
         public static async Task ValidateEmailAsync(string mail)
 #endif
         {
-#if NETFULL
+#if NET40
+            if (_client != null && !_client.IsRegisteredAsync())
 #else
             if (_client != null && !await _client.IsRegisteredAsync())
+#endif
             {
                 throw new InvalidOperationException("Please call activate before using product");
             }
-#endif
             ValidateEmailNoActivation(mail);
         }
     }
