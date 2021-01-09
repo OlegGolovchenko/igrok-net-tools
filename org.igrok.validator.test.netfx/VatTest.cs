@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Threading.Tasks;
 
 namespace org.igrok.validator.test.netfx
 {
@@ -328,6 +327,72 @@ namespace org.igrok.validator.test.netfx
         {
             VatValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("FRFF253684911"));
+        }
+
+        [Test]
+        public void WhenGermanVatIsTooLong()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("DE0123548972"));
+        }
+
+
+        [Test]
+        public void WhenGermanVatHasInvalidCharacters()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("DE01A3548972"));
+        }
+
+        [Test]
+        public void WhenGermanVatIsCorrect()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("DE012345678"));
+        }
+
+        [Test]
+        public void WhenGreekVatIsTooLong()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("EL0123548972"));
+        }
+
+
+        [Test]
+        public void WhenGreekVatHasInvalidCharacters()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("EL01A3548972"));
+        }
+
+        [Test]
+        public void WhenGreekVatIsCorrect()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("EL012345678"));
+        }
+
+        [Test]
+        public void WhenHungarianVatIsTooLong()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("HU123548972"));
+        }
+
+
+        [Test]
+        public void WhenHungarianVatHasInvalidCharacters()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("HU1A3548972"));
+        }
+
+        [Test]
+        public void WhenHungarianVatIsCorrect()
+        {
+            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("HU12345678"));
         }
     }
 }

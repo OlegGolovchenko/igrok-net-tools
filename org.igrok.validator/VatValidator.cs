@@ -200,7 +200,7 @@ namespace org.igrok.validator
             new VatCountry
             {
                 Code = "RO",
-                Lengths = new List<int>{10},
+                Lengths = new List<int>{2,3,4,5,6,7,8,9,10},
                 SpecialCharacters = new List<IVatSpecialCharacter>(),
                 ExcludedCharacters = "alpha"
             },
@@ -246,9 +246,16 @@ namespace org.igrok.validator
             new VatCountry
             {
                 Code = "GB",
-                Lengths = new List<int>{9},
+                Lengths = new List<int>{9,12},
                 SpecialCharacters = new List<IVatSpecialCharacter>(),
                 ExcludedCharacters = "alpha"
+            },
+            new VatCountry
+            {
+                Code = "GB",
+                Lengths = new List<int>{5},
+                SpecialCharacters = new List<IVatSpecialCharacter>(),
+                ExcludedCharacters = ""
             }
         };
 
@@ -268,6 +275,10 @@ namespace org.igrok.validator
             }
 
             var validator = _countryList.Single(e => e.Code == country);
+            if(country == "GB" && nbPart.Length == 5)
+            {
+                validator = _countryList.Last(e => e.Code == country);
+            }
             if (!validator.ValidateLength(nbPart) && validator.Code == "BE")
             {
                 nbPart = "0" + nbPart;
