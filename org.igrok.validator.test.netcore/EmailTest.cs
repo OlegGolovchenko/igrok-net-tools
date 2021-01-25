@@ -9,121 +9,112 @@ namespace org.igrok.validator.test
     [TestFixture]
     public class EmailTest
     {
-        [Test]
-        public async Task WhenEmailIsEmptyAsync()
+
+        [SetUp]
+        public async Task SetupTestRuns()
         {
             await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await EmailValidator.ValidateEmailAsync(""));
         }
 
         [Test]
-        public async Task WhenEmailIsNullAsync()
+        public void WhenEmailIsEmpty()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await EmailValidator.ValidateEmailAsync(null));
+            Assert.Throws<ArgumentNullException>(() => EmailValidator.ValidateEmailAsync(""));
         }
 
         [Test]
-        public async Task WhenEmailIsTooLongAsync()
+        public void WhenEmailIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => EmailValidator.ValidateEmailAsync(null));
+        }
+
+        [Test]
+        public void WhenEmailIsTooLong()
         {
             string longmail = "a";
             for (int i = 0; i < 256; i++)
             {
                 longmail += "a";
             }
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await EmailValidator.ValidateEmailAsync(longmail));
+            Assert.Throws<ArgumentOutOfRangeException>(() => EmailValidator.ValidateEmailAsync(longmail));
         }
 
         [Test]
-        public async Task WhenEmailDoesNotHaveAtCharacterAsync()
+        public void WhenEmailDoesNotHaveAtCharacter()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("plainaddress"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("plainaddress"));
         }
 
         [Test]
-        public async Task WhenEmailDomainPartNotContainDotAsync()
+        public void WhenEmailDomainPartNotContainDot()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("email@example"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@example"));
         }
 
         [Test]
-        public async Task WhenEmailDomainPartStartsWithInvalidCharacterAsync()
+        public void WhenEmailDomainPartStartsWithInvalidCharacter()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("email@-example.com"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@-example.com"));
         }
 
         [Test]
-        public async Task WhenEmailDomainPartContainsSpaceAsync()
+        public void WhenEmailDomainPartContainsSpace()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("email@example.com (Joe Smith)"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@example.com (Joe Smith)"));
         }
 
         [Test]
-        public async Task WhenEmailDomainPartContainsGraterThanAsync()
+        public void WhenEmailDomainPartContainsGraterThan()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("Joe Smith <email@example.com>"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("Joe Smith <email@example.com>"));
         }
 
         [Test]
-        public async Task WhenEmailDomainPartIsInvalidIpAsync()
+        public void WhenEmailDomainPartIsInvalidIp()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("email@111.222.333.44444"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@111.222.333.44444"));
         }
 
         [Test]
-        public async Task WhenEmailConsistsOfInvalidCharactersAsync()
+        public void WhenEmailConsistsOfInvalidCharacters()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("#@%^%#$@#$@#.com"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("#@%^%#$@#$@#.com"));
         }
 
         [Test]
-        public async Task WhenEmailAddressIsNullAsync()
+        public void WhenEmailAddressIsNull()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await EmailValidator.ValidateEmailAsync("@example.com"));
+            Assert.Throws<ArgumentNullException>(() => EmailValidator.ValidateEmailAsync("@example.com"));
         }
 
         [Test]
-        public async Task WhenEmailContainsDomainOnlyAsync()
+        public void WhenEmailContainsDomainOnly()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("email.example.com"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email.example.com"));
         }
 
         [Test]
-        public async Task WhenEmailContainsAtInAddressAsync()
+        public void WhenEmailContainsAtInAddress()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("email@example@example.com"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@example@example.com"));
         }
 
         [Test]
-        public async Task WhenEmailContainsDoubleDotInAddressAsync()
+        public void WhenEmailContainsDoubleDotInAddress()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("email..email@example.com"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email..email@example.com"));
         }
 
         [Test]
-        public async Task WhenEmailContainsInvalidCharactersInAddressAsync()
+        public void WhenEmailContainsInvalidCharactersInAddress()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
-            Assert.ThrowsAsync<ArgumentException>(async () => await EmailValidator.ValidateEmailAsync("あいうえお@example.com"));
+            Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("あいうえお@example.com"));
         }
 
 
         [Test]
-        public async Task WhenEmailsAreCorrectAsync()
+        public void WhenEmailsAreCorrect()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             List<string> emails = new List<string>()
             {
                 "email@example.com",
@@ -144,7 +135,7 @@ namespace org.igrok.validator.test
 
             foreach (string item in emails)
             {
-                Assert.DoesNotThrowAsync(async () => await EmailValidator.ValidateEmailAsync(item));
+                Assert.DoesNotThrow(() => EmailValidator.ValidateEmailAsync(item));
             }
         }
     }

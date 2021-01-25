@@ -15,6 +15,7 @@ namespace org.igrok.validator
     {
         private static ActivationClient _client;
         private static string _activationMail;
+        private static bool _activated;
 
         private static List<VatCountry> _countryList = new List<VatCountry>
         {
@@ -200,7 +201,7 @@ namespace org.igrok.validator
             new VatCountry
             {
                 Code = "RO",
-                Lengths = new List<int>{10},
+                Lengths = new List<int>{2,3,4,5,6,7,8,9,10},
                 SpecialCharacters = new List<IVatSpecialCharacter>(),
                 ExcludedCharacters = "alpha"
             },
@@ -246,9 +247,16 @@ namespace org.igrok.validator
             new VatCountry
             {
                 Code = "GB",
-                Lengths = new List<int>{9},
+                Lengths = new List<int>{9,12},
                 SpecialCharacters = new List<IVatSpecialCharacter>(),
                 ExcludedCharacters = "alpha"
+            },
+            new VatCountry
+            {
+                Code = "GB",
+                Lengths = new List<int>{5},
+                SpecialCharacters = new List<IVatSpecialCharacter>(),
+                ExcludedCharacters = ""
             }
         };
 
@@ -268,6 +276,10 @@ namespace org.igrok.validator
             }
 
             var validator = _countryList.Single(e => e.Code == country);
+            if(country == "GB" && nbPart.Length == 5)
+            {
+                validator = _countryList.Last(e => e.Code == country);
+            }
             if (!validator.ValidateLength(nbPart) && validator.Code == "BE")
             {
                 nbPart = "0" + nbPart;
@@ -320,20 +332,9 @@ namespace org.igrok.validator
         /// Validates Vat number
         /// </summary>
         /// <param name="vat">Vat number to check for correct format</param>
-#if NET40
         public static void ValidateVatAsync(string vat)
-#else
-        public static async Task ValidateVatAsync(string vat)
-#endif
         {
-            _client = new ActivationClient(_activationMail);
-#if NET40
-            _client.ActivateAsync();
-            if(!_client.IsRegisteredAsync())
-#else
-            await _client.ActivateAsync();
-            if (!await _client.IsRegisteredAsync())
-#endif
+            if (_client != null && !_activated)
             {
                 throw new InvalidOperationException("Please call activate before using product");
             }
@@ -355,8 +356,10 @@ namespace org.igrok.validator
             _client = new ActivationClient(_activationMail);
 #if NET40
             _client.ActivateAsync();
+            _activated = _client.IsRegisteredAsync();
 #else
             await _client.ActivateAsync();
+            _activated = await _client.IsRegisteredAsync();
 #endif
         }
 
@@ -369,6 +372,7 @@ namespace org.igrok.validator
         {
             _client = new ActivationClient(email);
             _client.ActivateOffline(licenseFilePath);
+            _activated = _client.IsActiveOffline();
         }
     }
 }
