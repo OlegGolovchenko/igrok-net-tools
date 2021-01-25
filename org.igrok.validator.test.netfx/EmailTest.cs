@@ -7,17 +7,21 @@ namespace org.igrok.validator.test.netfx
     [TestFixture]
     public class EmailTest
     {
+        [SetUp]
+        public void SetupTestRuns()
+        {
+            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
+        }
+
         [Test]
         public void WhenEmailIsEmptyAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentNullException>(()=>EmailValidator.ValidateEmailAsync(""));
         }
 
         [Test]
         public void WhenEmailIsNullAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentNullException>(() => EmailValidator.ValidateEmailAsync(null));
         }
 
@@ -29,91 +33,78 @@ namespace org.igrok.validator.test.netfx
             {
                 longmail += "a";
             }
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentOutOfRangeException>(() => EmailValidator.ValidateEmailAsync(longmail));
         }
 
         [Test]
         public void WhenEmailDoesNotHaveAtCharacterAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("plainaddress"));
         }
 
         [Test]
         public void WhenEmailDomainPartNotContainDotAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@example"));
         }
 
         [Test]
         public void WhenEmailDomainPartStartsWithInvalidCharacterAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@-example.com"));
         }
 
         [Test]
         public void WhenEmailDomainPartContainsSpaceAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@example.com (Joe Smith)"));
         }
 
         [Test]
         public void WhenEmailDomainPartContainsGraterThanAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("Joe Smith <email@example.com>"));
         }
 
         [Test]
         public void WhenEmailDomainPartIsInvalidIpAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@111.222.333.44444"));
         }
 
         [Test]
         public void WhenEmailConsistsOfInvalidCharactersAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("#@%^%#$@#$@#.com"));
         }
 
         [Test]
         public void WhenEmailAddressIsNullAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentNullException>(() => EmailValidator.ValidateEmailAsync("@example.com"));
         }
 
         [Test]
         public void WhenEmailContainsDomainOnlyAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email.example.com"));
         }
 
         [Test]
         public void WhenEmailContainsAtInAddressAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email@example@example.com"));
         }
 
         [Test]
         public void WhenEmailContainsDoubleDotInAddressAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("email..email@example.com"));
         }
 
         [Test]
         public void WhenEmailContainsInvalidCharactersInAddressAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             Assert.Throws<ArgumentException>(() => EmailValidator.ValidateEmailAsync("あいうえお@example.com"));
         }
 
@@ -121,7 +112,6 @@ namespace org.igrok.validator.test.netfx
         [Test]
         public void WhenEmailsAreCorrectAsync()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
             List<string> emails = new List<string>()
             {
                 "email@example.com",

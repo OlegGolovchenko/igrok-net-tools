@@ -14,6 +14,7 @@ namespace org.igrok.validator
     {
         private static ActivationClient _client;
         private static string _activationMail;
+        private static bool _activated;
         /// <summary>
         /// Activates product to be used.
         /// Disclaimer! We are not collecting your data without your consent, your e-mail is the only personal data used in our system.
@@ -29,8 +30,10 @@ namespace org.igrok.validator
             _client = new ActivationClient(_activationMail);
 #if NET40
             _client.ActivateAsync();
+            _activated = _client.IsRegisteredAsync();
 #else
             await _client.ActivateAsync();
+            _activated = await _client.IsRegisteredAsync();
 #endif
         }
 
@@ -43,6 +46,7 @@ namespace org.igrok.validator
         {
             _client = new ActivationClient(email);
             _client.ActivateOffline(licenseFilePath);
+            _activated = _client.IsActiveOffline();
         }
 
         internal static void ValidateEmailNoActivation(string mail)
@@ -163,17 +167,9 @@ namespace org.igrok.validator
         /// <remarks>
         /// Throws ArgumentException, ArgumentNullException or ArgumentOutOfRangeException if email is invalid.
         /// </remarks>
-#if NET40
         public static void ValidateEmailAsync(string mail)
-#else
-        public static async Task ValidateEmailAsync(string mail)
-#endif
         {
-#if NET40
-            if (_client != null && !_client.IsRegisteredAsync())
-#else
-            if (_client != null && !await _client.IsRegisteredAsync())
-#endif
+            if (_client != null && !_activated)
             {
                 throw new InvalidOperationException("Please call activate before using product");
             }

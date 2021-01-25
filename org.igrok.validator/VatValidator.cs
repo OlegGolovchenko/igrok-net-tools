@@ -15,6 +15,7 @@ namespace org.igrok.validator
     {
         private static ActivationClient _client;
         private static string _activationMail;
+        private static bool _activated;
 
         private static List<VatCountry> _countryList = new List<VatCountry>
         {
@@ -331,20 +332,9 @@ namespace org.igrok.validator
         /// Validates Vat number
         /// </summary>
         /// <param name="vat">Vat number to check for correct format</param>
-#if NET40
         public static void ValidateVatAsync(string vat)
-#else
-        public static async Task ValidateVatAsync(string vat)
-#endif
         {
-            _client = new ActivationClient(_activationMail);
-#if NET40
-            _client.ActivateAsync();
-            if(!_client.IsRegisteredAsync())
-#else
-            await _client.ActivateAsync();
-            if (!await _client.IsRegisteredAsync())
-#endif
+            if (_client != null && !_activated)
             {
                 throw new InvalidOperationException("Please call activate before using product");
             }
@@ -366,8 +356,10 @@ namespace org.igrok.validator
             _client = new ActivationClient(_activationMail);
 #if NET40
             _client.ActivateAsync();
+            _activated = _client.IsRegisteredAsync();
 #else
             await _client.ActivateAsync();
+            _activated = await _client.IsRegisteredAsync();
 #endif
         }
 
@@ -380,6 +372,7 @@ namespace org.igrok.validator
         {
             _client = new ActivationClient(email);
             _client.ActivateOffline(licenseFilePath);
+            _activated = _client.IsActiveOffline();
         }
     }
 }
