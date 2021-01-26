@@ -353,7 +353,10 @@ namespace org.igrok.validator
 #endif
         {
             _activationMail = email;
-            _client = new ActivationClient(_activationMail);
+            if(_client == null)
+            {
+                _client = new ActivationClient(_activationMail);
+            }
 #if NET40
             _client.ActivateAsync();
             _activated = _client.IsRegisteredAsync();
@@ -370,7 +373,10 @@ namespace org.igrok.validator
         /// <param name="licenseFilePath">license file with validation info</param>
         public static void ActivateOffline(string email, string licenseFilePath)
         {
-            _client = new ActivationClient(email);
+            if (_client == null)
+            {
+                _client = new ActivationClient(email);
+            }
             _client.ActivateOffline(licenseFilePath);
             _activated = _client.IsActiveOffline();
         }

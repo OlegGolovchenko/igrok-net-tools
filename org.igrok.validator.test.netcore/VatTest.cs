@@ -7,8 +7,7 @@ namespace org.igrok.validator.test
     [TestFixture]
     public class VatTest
     {
-
-        [SetUp]
+        [OneTimeSetUp]
         public async Task SetupTestRuns()
         {
             await VatValidator.ActivateAsync("igrok_be@hotmail.com");
