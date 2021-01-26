@@ -10,7 +10,7 @@ namespace org.igrok.validator.test
     public class EmailTest
     {
 
-        [SetUp]
+        [OneTimeSetUp]
         public async Task SetupTestRuns()
         {
             await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
