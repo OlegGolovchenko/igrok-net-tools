@@ -7,6 +7,7 @@ namespace org.igrok.validator.test
     [TestFixture]
     public class VatTest
     {
+
         [OneTimeSetUp]
         public async Task SetupTestRuns()
         {
