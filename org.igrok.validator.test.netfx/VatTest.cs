@@ -9,7 +9,7 @@ namespace org.igrok.validator.test.netfx
         [OneTimeSetUp]
         public void SetupTestRuns()
         {
-            VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            VatValidator.Activate("igrok_be@hotmail.com");
         }
 
         [TestCase(null)]

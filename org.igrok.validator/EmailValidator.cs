@@ -20,39 +20,20 @@ namespace org.igrok.validator
         /// Disclaimer! We are not collecting your data without your consent, your e-mail is the only personal data used in our system.
         /// </summary>
         /// <param name="email">email used to identify your activation</param>
-#if NET40
-        public static void ActivateAsync(string email)
-#else
-        public static async Task ActivateAsync(string email)
-#endif
+        /// <param name="key">key used for offline activation</param>
+        public static void Activate(string email, string key = null)
         {
             _activationMail = email;
             if (_client == null)
             {
-                _client = new ActivationClient(_activationMail);
+                _client = new ActivationClient();
+                _client.Init(_activationMail, key);
             }
-#if NET40
-            _client.ActivateAsync();
-            _activated = _client.IsRegisteredAsync();
-#else
-            await _client.ActivateAsync();
-            _activated = await _client.IsRegisteredAsync();
-#endif
-        }
-
-        /// <summary>
-        /// Activates product using offline file with license information
-        /// </summary>
-        /// <param name="email">email of user to validate</param>
-        /// <param name="licenseFilePath">license file with validation info</param>
-        public static void ActivateOffline(string email, string licenseFilePath)
-        {
-            if (_client == null)
+            if (string.IsNullOrWhiteSpace(key))
             {
-                _client = new ActivationClient(email);
+                _client.Register((ushort)ProductsEnum.IGNValidator);
             }
-            _client.ActivateOffline(licenseFilePath);
-            _activated = _client.IsActiveOffline();
+            _activated = _client.IsRegistered((ushort)ProductsEnum.IGNValidator);
         }
 
         internal static void ValidateEmailNoActivation(string mail)

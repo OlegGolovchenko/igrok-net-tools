@@ -9,9 +9,9 @@ namespace org.igrok.validator.test
     {
 
         [OneTimeSetUp]
-        public async Task SetupTestRuns()
+        public void SetupTestRuns()
         {
-            await VatValidator.ActivateAsync("igrok_be@hotmail.com");
+            VatValidator.Activate("igrok_be@hotmail.com");
         }
 
         [TestCase(null)]

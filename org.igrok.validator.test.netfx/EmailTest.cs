@@ -10,7 +10,7 @@ namespace org.igrok.validator.test.netfx
         [OneTimeSetUp]
         public void SetupTestRuns()
         {
-            EmailValidator.ActivateAsync("igrok_be@hotmail.com");
+            EmailValidator.Activate("igrok_be@hotmail.com");
         }
 
         [Test]

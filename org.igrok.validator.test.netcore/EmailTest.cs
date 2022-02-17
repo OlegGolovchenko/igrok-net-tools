@@ -11,9 +11,9 @@ namespace org.igrok.validator.test
     {
 
         [OneTimeSetUp]
-        public async Task SetupTestRuns()
+        public void SetupTestRuns()
         {
-            await EmailValidator.ActivateAsync("igrok_be@hotmail.com");
+            EmailValidator.Activate("igrok_be@hotmail.com");
         }
 
         [Test]
