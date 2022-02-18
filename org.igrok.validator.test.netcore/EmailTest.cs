@@ -13,7 +13,7 @@ namespace org.igrok.validator.test
         [OneTimeSetUp]
         public void SetupTestRuns()
         {
-            EmailValidator.Activate("igrok_be@hotmail.com");
+            EmailValidator.Activate("igntest@igrok-net.org", "02317-7C8A2-98981-00007-DB1B8");
         }
 
         [Test]
