@@ -6,12 +6,12 @@
     <Description>Validators for data types that are not available in c# apis</Description>
     <Copyright>Oleg Golovchenko</Copyright>
     <PackageTags>Validator email data vat</PackageTags>
-    <Version>1.1.9.0</Version>
+    <Version>1.1.9.1</Version>
     <Authors>Oleg Golovcheko</Authors>
     <Company>igrok org</Company>
     <Product>igrok tools validators</Product>
-    <AssemblyVersion>1.1.9.0</AssemblyVersion>
-    <FileVersion>1.1.9.0</FileVersion>
+    <AssemblyVersion>1.1.9.1</AssemblyVersion>
+    <FileVersion>1.1.9.1</FileVersion>
     <NeutralLanguage></NeutralLanguage>
     <PackageReleaseNotes>In current version Vat validation does not work for all countries and used as experimental feature</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -43,7 +43,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="IgnActivator" Version="1.1.4" />
+    <PackageReference Include="IgnActivator" Version="1.1.4.1" />
   </ItemGroup>
 
   <ItemGroup>
