@@ -19,6 +19,7 @@
     <PackageProjectUrl>https://igrok-net.org/products</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>IGNValidators.png</PackageIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net40'">
@@ -26,11 +27,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\IgRoK\source\repos\igrok_tools\org.igrok.validator\org.igrok.validator.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\IgRoK\source\repos\igrok_tools\org.igrok.validator\org.igrok.validator.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
