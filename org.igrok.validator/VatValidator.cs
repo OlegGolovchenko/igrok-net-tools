@@ -227,8 +227,9 @@ namespace org.igrok.validator
                 Lengths = new List<int>{9},
                 SpecialCharacters = new List<IVatSpecialCharacter>
                 {
-                    new VatAlphaSpecialCharacter(0),
-                    new VatAlphaSpecialCharacter(8)
+                    new VatAlphaSpecialCharacter(0, new int[]{ }, 9),
+                    new VatAlphaSpecialCharacter(8, new int[]{ }, 9),
+                    new VatAlphaSpecialCharacter(0, new int[]{ 8 }, 9)
                 },
                 ExcludedCharacters = ""
             },
