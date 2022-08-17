@@ -14,8 +14,8 @@ namespace org.igrok.validator.test
             VatValidator.Activate("igntest@igrok-net.org", "02317-7C8A2-98981-00007-DB1B8");
         }
 
-        [TestCase(null)]
-        [TestCase("")]
+        [TestCase(null, TestName = "WhenVatNumberIsNull")]
+        [TestCase("", TestName = "WhenVatNumberIsEmpty")]
         public void WhenVatNumberIsNullOrEmpty(string vat)
         {
             Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync(vat));
@@ -346,6 +346,116 @@ namespace org.igrok.validator.test
         public void WhenHungarianVatIsCorrect()
         {
             Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("HU12345678"));
+        }
+
+        [Test]
+        public void WhenIerlandVatIsCorrect()
+        {
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("IE01234567A"));
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("IE0123456AA"));
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("IE0A234567A"));
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("IE0123456A"));
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("IE012345AA"));
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("IE0A23456A"));
+        }
+
+        [Test]
+        public void WhenIerlandVatIsNotCorrect()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE01A34567A"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE01A3456AA"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE0AA34567A"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE01A3456A"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE01A345AA"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE0AA3456A"));
+        }
+
+        [Test]
+        public void WhenIerlandVatIsTooLong()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE0AA3456A222"));
+        }
+
+        [Test]
+        public void WhenIerlandVatIsTooShort()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IE0AA56A"));
+        }
+
+        [Test]
+        public void WhenItalianVatIsNumeric()
+        {
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("IT01234567890"));
+        }
+
+        [Test]
+        public void WhenItalianVatIsAlphanumericNumeric()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IT0123456789A"));
+        }
+
+        [Test]
+        public void WhenItalianVatIsTooLong()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IT01234567890000"));
+        }
+
+        [Test]
+        public void WhenItalianVatIsTooShort()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("IT0123456789"));
+        }
+
+        [Test]
+        public void WhenLVVatIsNumeric()
+        {
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("LV01234567890"));
+        }
+
+        [Test]
+        public void WhenLVVatIsAlphanumericNumeric()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LV0123456789A"));
+        }
+
+        [Test]
+        public void WhenLVVatIsTooLong()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LV01234567890000"));
+        }
+
+        [Test]
+        public void WhenLVVatIsTooShort()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LV0123456789"));
+        }
+
+        [Test]
+        public void WhenLTVatIsNumeric()
+        {
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("LT012345678901"));
+            Assert.DoesNotThrow(() => VatValidator.ValidateVatAsync("LT012345678"));
+        }
+
+        [Test]
+        public void WhenLTVatIsAlphanumericNumeric()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LT0123456789A"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LT01234567A"));
+        }
+
+        [Test]
+        public void WhenLTVatIsTooLong()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LT01234567890000"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LT012345678000000000"));
+        }
+
+        [Test]
+        public void WhenLTVatIsTooShort()
+        {
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LT0123456789"));
+            Assert.Throws<ArgumentException>(() => VatValidator.ValidateVatAsync("LT01234567"));
         }
     }
 }

@@ -18,8 +18,7 @@ namespace org.igrok.validator
         public bool ValidateSpecialCharacters(string nbPart)
         {
             return SpecialCharacters.Count == 0 ? true : SpecialCharacters.
-                Any(e => e.CharacterPositionValid(nbPart)) ? true : SpecialCharacters.
-                Any(e => e.CharacterPositionValid(nbPart, nbPart.Length));
+                Any(e => e.CharacterPositionValid(nbPart));
         }
 
         public bool ValidateExcludedCharacters (string nbPart)

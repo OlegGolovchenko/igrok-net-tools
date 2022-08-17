@@ -118,10 +118,12 @@ namespace org.igrok.validator
                 Code = "IE",
                 Lengths = new List<int>{8,9},
                 SpecialCharacters = new List<IVatSpecialCharacter>{
-                    new VatSpecialCharacter('A',8),
-                    new VatSpecialCharacter('A',7),
-                    new VatSpecialCharacter('H',8),
-                    new VatSpecialCharacter('H',7)
+                    new VatAlphaSpecialCharacter(7, new int[]{ }, 8),
+                    new VatAlphaSpecialCharacter(8, new int[]{ }, 9),
+                    new VatAlphaSpecialCharacter(7, new int[]{6}, 8),
+                    new VatAlphaSpecialCharacter(8, new int[]{7}, 9),
+                    new VatAlphaSpecialCharacter(7, new int[]{1}, 8),
+                    new VatAlphaSpecialCharacter(8, new int[]{1}, 9)
                 },
                 ExcludedCharacters = ""
             },
@@ -225,8 +227,9 @@ namespace org.igrok.validator
                 Lengths = new List<int>{9},
                 SpecialCharacters = new List<IVatSpecialCharacter>
                 {
-                    new VatAlphaSpecialCharacter(0),
-                    new VatAlphaSpecialCharacter(8)
+                    new VatAlphaSpecialCharacter(0, new int[]{ }, 9),
+                    new VatAlphaSpecialCharacter(8, new int[]{ }, 9),
+                    new VatAlphaSpecialCharacter(0, new int[]{ 8 }, 9)
                 },
                 ExcludedCharacters = ""
             },
