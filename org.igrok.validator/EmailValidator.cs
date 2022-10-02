@@ -38,7 +38,7 @@ namespace org.igrok.validator
         /// </summary>
         /// <param name="email">email used to identify your activation</param>
         /// <param name="key">key used for offline activation</param>
-        public static void Activate(string email, string key = null)
+        public static void Activate(string email, string key)
         {
             _activationMail = email;
             if (_client == null)
@@ -48,7 +48,7 @@ namespace org.igrok.validator
             }
             if (string.IsNullOrWhiteSpace(key))
             {
-                _client.Register((ushort)ProductsEnum.IGNValidator);
+                _client.Register((ushort)ProductsEnum.IGNValidator, key);
             }
             _activated = _client.IsRegistered((ushort)ProductsEnum.IGNValidator);
         }

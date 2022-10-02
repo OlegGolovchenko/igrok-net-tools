@@ -28,7 +28,7 @@ namespace org.igrok.validator.test
         [OneTimeSetUp]
         public void SetupTestRuns()
         {
-            VatValidator.Activate("igntest@igrok-net.org", "02317-7C8A2-98981-00007-DB1B8");
+            VatValidator.Activate("igntest@igrok-net.org", "03108-00001-C8A29-8981D-B1B8C");
         }
 
         [TestCase(null, TestName = "WhenVatNumberIsNull")]
