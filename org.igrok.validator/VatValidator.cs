@@ -19,9 +19,6 @@ using IGNActivation.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-#if !NET40
-using System.Threading.Tasks;
-#endif
 
 namespace org.igrok.validator
 {
@@ -34,7 +31,7 @@ namespace org.igrok.validator
         private static string _activationMail;
         private static bool _activated;
 
-        private static List<VatCountry> _countryList = new List<VatCountry>
+        private static readonly List<VatCountry> _countryList = new List<VatCountry>
         {
             new VatCountry
             {
@@ -280,8 +277,17 @@ namespace org.igrok.validator
             }
         };
 
-        internal static void ValidateVatNoActivation(string vat)
+        /// <summary>
+        /// Validates Vat number
+        /// </summary>
+        /// <param name="vat">Vat number to check for correct format</param>
+        public static void ValidateVatAsync(string vat)
         {
+            if (_client != null && !_activated)
+            {
+                throw new InvalidOperationException("Please call activate before using product");
+            }
+
             if (string.IsNullOrEmpty(vat))
             {
                 throw new ArgumentException("Should not be empty", "vat");
@@ -296,7 +302,7 @@ namespace org.igrok.validator
             }
 
             var validator = _countryList.Single(e => e.Code == country);
-            if(country == "GB" && nbPart.Length == 5)
+            if (country == "GB" && nbPart.Length == 5)
             {
                 validator = _countryList.Last(e => e.Code == country);
             }
@@ -349,25 +355,13 @@ namespace org.igrok.validator
         }
 
         /// <summary>
-        /// Validates Vat number
-        /// </summary>
-        /// <param name="vat">Vat number to check for correct format</param>
-        public static void ValidateVatAsync(string vat)
-        {
-            if (_client != null && !_activated)
-            {
-                throw new InvalidOperationException("Please call activate before using product");
-            }
-            ValidateVatNoActivation(vat);
-        }
-
-        /// <summary>
         /// Activates product to be used.
         /// Disclaimer! We are not collecting your data without your consent, your e-mail is the only personal data used in our system.
         /// </summary>
         /// <param name="email">email used to identify your activation</param>
         /// <param name="key">key used for offline activation</param>
-        public static void Activate(string email, string key)
+        /// <param name="fileLocation">function used to retrieve license file for offline activation if environment varioable is not set</param>
+        public static void Activate(string email, string key, Func<string> fileLocation = null)
         {
             _activationMail = email;
             if (_client == null)
@@ -378,6 +372,13 @@ namespace org.igrok.validator
             if (string.IsNullOrWhiteSpace(key))
             {
                 _client.Register((ushort)ProductsEnum.IGNValidator, key);
+            }
+            else
+            {
+                if (fileLocation != null)
+                {
+                    _client.Register((ushort)ProductsEnum.IGNValidator, fileLocation);
+                }
             }
             _activated = _client.IsRegistered((ushort)ProductsEnum.IGNValidator);
         }
