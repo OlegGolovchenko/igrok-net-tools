@@ -32,13 +32,15 @@ namespace org.igrok.validator
         private static ActivationClient _client;
         private static string _activationMail;
         private static bool _activated;
+
         /// <summary>
         /// Activates product to be used.
         /// Disclaimer! We are not collecting your data without your consent, your e-mail is the only personal data used in our system.
         /// </summary>
         /// <param name="email">email used to identify your activation</param>
         /// <param name="key">key used for offline activation</param>
-        public static void Activate(string email, string key)
+        /// <param name="fileLocation">function used to retrieve license file for offline activation if environment varioable is not set</param>
+        public static void Activate(string email, string key, Func<string> fileLocation = null)
         {
             _activationMail = email;
             if (_client == null)
@@ -50,11 +52,32 @@ namespace org.igrok.validator
             {
                 _client.Register((ushort)ProductsEnum.IGNValidator, key);
             }
+            else
+            {
+                if (fileLocation != null)
+                {
+                    _client.Register((ushort)ProductsEnum.IGNValidator, fileLocation);
+                }
+            }
             _activated = _client.IsRegistered((ushort)ProductsEnum.IGNValidator);
         }
 
-        internal static void ValidateEmailNoActivation(string mail)
+        /// <summary>
+        /// Validates email according to RFC 5321.
+        /// Throws ArgumentException, ArgumentNullException, ArgumentOutOfRangeException.
+        /// If no exception is thrown e-mail is valid.
+        /// </summary>
+        /// <param name="mail">email to validate</param>
+        /// <remarks>
+        /// Throws ArgumentException, ArgumentNullException or ArgumentOutOfRangeException if email is invalid.
+        /// </remarks>
+        public static void ValidateEmailAsync(string mail)
         {
+            if (_client != null && !_activated)
+            {
+                throw new InvalidOperationException("Please call activate before using product");
+            }
+
             if (String.IsNullOrEmpty(mail))
             {
                 throw new ArgumentNullException("Email", "Email can't be null or empty");
@@ -160,24 +183,6 @@ namespace org.igrok.validator
             {
                 throw new ArgumentException("Address partcontains double dot");
             }
-        }
-
-        /// <summary>
-        /// Validates email according to RFC 5321.
-        /// Throws ArgumentException, ArgumentNullException, ArgumentOutOfRangeException.
-        /// If no exception is thrown e-mail is valid.
-        /// </summary>
-        /// <param name="mail">email to validate</param>
-        /// <remarks>
-        /// Throws ArgumentException, ArgumentNullException or ArgumentOutOfRangeException if email is invalid.
-        /// </remarks>
-        public static void ValidateEmailAsync(string mail)
-        {
-            if (_client != null && !_activated)
-            {
-                throw new InvalidOperationException("Please call activate before using product");
-            }
-            ValidateEmailNoActivation(mail);
         }
     }
 }

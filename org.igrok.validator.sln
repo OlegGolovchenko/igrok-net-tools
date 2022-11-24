@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29806.167
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "org.igrok.validator", "org.igrok.validator\org.igrok.validator.csproj", "{31B8CA95-F32E-4BEC-895E-E4F7C9EA218C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "org.igrok.validator.test.netcore", "org.igrok.validator.test.netcore\org.igrok.validator.test.netcore.csproj", "{928FFA94-FFC5-45FF-81CE-EDDACAB22B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "org.igrok.validator.test.netfx", "org.igrok.validator.test.netfx\org.igrok.validator.test.netfx.csproj", "{BE97A648-649F-493B-BA57-3B9D46F223A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "org.igrok.validator.test.netfx", "org.igrok.validator.test.netfx\org.igrok.validator.test.netfx.csproj", "{BE97A648-649F-493B-BA57-3B9D46F223A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "org.igrok.validator.test.netfx4x", "org.igrok.validator.test.netfx4x\org.igrok.validator.test.netfx4x.csproj", "{C0B64153-B996-4F90-BC09-FA29E373A28A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BE97A648-649F-493B-BA57-3B9D46F223A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE97A648-649F-493B-BA57-3B9D46F223A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE97A648-649F-493B-BA57-3B9D46F223A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0B64153-B996-4F90-BC09-FA29E373A28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B64153-B996-4F90-BC09-FA29E373A28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B64153-B996-4F90-BC09-FA29E373A28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B64153-B996-4F90-BC09-FA29E373A28A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

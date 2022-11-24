@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net40;</TargetFrameworks>
+    <TargetFrameworks>net60;netstandard2.0;net40;</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Validators for data types that are not available in c# apis</Description>
     <Copyright>Oleg Golovchenko</Copyright>
     <PackageTags>IgRok-Net Validator email data vat</PackageTags>
-    <Version>2.0.0.0</Version>
+    <Version>2.1.0.0</Version>
     <Authors>Oleg Golovcheko</Authors>
     <Company>igrok org</Company>
-    <Product>igrok tools validators</Product>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <Product>igrok-net tools email vat format validation</Product>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
     <NeutralLanguage></NeutralLanguage>
     <PackageReleaseNotes>In current version Vat validation does not work for all countries and used as experimental feature</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -20,6 +20,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>IGNValidators.png</PackageIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>org.igrok-net.validator</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net40'">
@@ -34,19 +36,12 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.5" />
-	<PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-    <Reference Include="System.Net" />
-	<PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net60' ">
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="IgnActivator" Version="2.0.0" />
+    <PackageReference Include="IgnActivator" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +52,10 @@
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
     <None Include="IGNValidators.png">
       <Pack>True</Pack>
