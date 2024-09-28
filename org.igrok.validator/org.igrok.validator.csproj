@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net80;netstandard2.0;net40;</TargetFrameworks>
+    <TargetFrameworks>net8.0;netstandard2.0;net40;</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Validators for data types that are not available in c# apis</Description>
     <Copyright>Oleg Golovchenko</Copyright>
