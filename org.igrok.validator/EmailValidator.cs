@@ -15,10 +15,11 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //###########################################################################################################
+
 using IGNActivation.Client;
 using System;
 using System.Text.RegularExpressions;
-#if !NET40
+#if !NETFRAMEWORK
 using System.Threading.Tasks;
 #endif
 
